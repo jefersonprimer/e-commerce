@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+como vai ser seguido as estruturas de pastas
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+/ecommerce
+│── /public                # Imagens, ícones e assets estáticos
+│── /src
+│   ├── /domain            # Regras de negócio e entidades (NÃO depende de nada externo)
+│   │   ├── /entities      # Modelos de domínio (Produto, Usuário, Pedido)
+│   │   │   ├── Product.ts
+│   │   │   ├── User.ts
+│   │   │   ├── Order.ts
+│   │   ├── /useCases      # Casos de uso (Adicionar ao carrinho, Checkout)
+│   │   │   ├── AddToCart.ts
+│   │   │   ├── Checkout.ts
+│   │   │   ├── GetProduct.ts
+│   │   │   ├── GetCart.ts
+│   ├── /infra             # Infraestrutura: APIs externas, Banco de dados, Repositórios
+│   │   ├── /database      # Configuração do banco (Prisma, Firebase, etc.)
+│   │   │   ├── prisma.ts
+│   │   ├── /repositories  # Implementações dos repositórios (Produtos, Usuários)
+│   │   │   ├── ProductRepository.ts
+│   │   │   ├── UserRepository.ts
+│   │   ├── /payment       # Integração com Stripe/PicPay
+│   │   │   ├── PaymentGateway.ts
+│   ├── /main              # Configuração e injeção de dependências
+│   │   ├── routes.ts      # Definição de repositórios e casos de uso
+│   │   ├── server.ts      # Inicialização do servidor (caso tenha API separada)
+│   ├── /presentation      # Camada de UI e páginas do Next.js
+│   │   ├── /app           # App Router (Next.js 15)
+│   │   │   ├── layout.tsx # Layout principal
+│   │   │   ├── /page.tsx  # Página inicial
+│   │   │   ├── /produto   # Página de produto
+│   │   │   │   ├── [id]/page.tsx
+│   │   │   ├── /carrinho  # Página do carrinho de compras
+│   │   │   │   ├── page.tsx
+│   │   │   ├── /checkout  # Página de checkout
+│   │   │   │   ├── page.tsx
+│   │   │   ├── /conta     # Página de conta do usuário
+│   │   │   │   ├── page.tsx
+│   │   │   ├── /admin     # Dashboard para admin (proteção de rota necessária)
+│   │   │   │   ├── page.tsx
+│   │   ├── /components    # Componentes reutilizáveis (UI)
+│   │   │   ├── /ui        # Botões, Inputs, Modais
+│   │   │   ├── /layout    # Header, Footer, Sidebar
+│   │   │   ├── /product   # Card de produto, Galeria
+│   ├── /validation        # Validações de entrada (Zod/Yup)
+│   │   ├── schemas.ts     # Schemas de validação (Usuário, Produto, Pedido)
+│   │   ├── form.ts        # Validações de formulários
+│   ├── /store             # Estado global (Zustand/Redux)
+│   │   ├── cartStore.ts   # Estado do carrinho
+│   │   ├── authStore.ts   # Estado do usuário autenticado
+│   ├── /hooks             # Hooks customizados (useCart, useAuth, useProduct)
+│   ├── /lib               # Bibliotecas auxiliares (ex.: formatadores)
+│   ├── /services          # Chamadas para APIs (produtos, checkout, user)
+│   ├── /types             # Tipagens do projeto (Produto, Usuário, Pedido)
+│   ├── /utils             # Funções utilitárias (ex.: formatar preço, datas)
+│── /tests                 # Testes unitários e integração
+│── /styles                # Estilos globais (Tailwind, CSS Modules, etc.)
+│── next.config.mjs        # Configuração do Next.js
+│── tsconfig.json          # Configuração do TypeScript
+│── package.json           # Dependências do projeto
+│── .eslintrc.js           # Configuração do ESLint para manter Clean Code
+│── .prettierrc            # Configuração do Prettier para formatação de código
